@@ -91,12 +91,12 @@ a {
 }
 
 .sale-text {
-    color: red !important; /* Shein highlights sales in red */
+    color: red !important;
 }
 
 /* --- Hero Banner Styles --- */
 .hero {
-    background-color: #fce4ec; /* Light pink */
+    background-color: #fce4ec;
     height: 400px;
     display: flex;
     align-items: center;
@@ -141,14 +141,32 @@ a {
     margin-bottom: 30px;
 }
 
-/* Grid Layout for Products */
-.product-grid {
-    display: grid;
-    /* This creates a responsive grid that fits as many 250px columns as possible */
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px; 
+/* Featured Deals section — subtle background to distinguish it */
+.featured-deals-section {
+    background-color: #fff8f0;
+    padding: 40px 5%;
+    width: 100%;
+    border-top: 2px solid #f0c080;
+    border-bottom: 2px solid #f0c080;
+    margin-bottom: 40px;
 }
 
+/* Loading message */
+.loading-msg {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+/* --- Grid Layout --- */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* --- Product Card --- */
 .product-card {
     background-color: #fff;
     padding: 15px;
@@ -164,20 +182,26 @@ a {
 
 .product-card img {
     width: 100%;
-    height: auto;
+    height: 220px;
+    object-fit: contain;
     margin-bottom: 15px;
 }
 
 .product-info h4 {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 8px;
     color: #555;
+    /* clamp to 2 lines so card heights stay consistent */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .price {
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .add-to-cart {
@@ -187,11 +211,110 @@ a {
     border: 1px solid #000;
     cursor: pointer;
     font-weight: bold;
+    margin-top: 8px;
 }
 
 .add-to-cart:hover {
     background-color: #000;
     color: #fff;
+}
+
+/* Quick View button */
+.quick-view-btn {
+    width: 100%;
+    padding: 8px;
+    background-color: #e91e8c;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.quick-view-btn:hover {
+    background-color: #c2185b;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: #fff;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 4px;
+    padding: 30px;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px; right: 16px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    color: #333;
+}
+
+.modal-body {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.modal-body img {
+    width: 220px;
+    height: 260px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.modal-details {
+    flex: 1;
+    min-width: 200px;
+}
+
+.modal-details h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.modal-price {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.modal-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.modal-rating {
+    font-size: 14px;
+    margin-bottom: 16px;
+    color: #e67e00;
 }
 
 /* --- Footer Styles --- */
@@ -215,81 +338,21 @@ footer {
     text-decoration: underline;
 }
 
-
-
-/* --- Bonus: Tablet View (Screens smaller than 992px) --- */
-@media (max-width: 992px) {
+/* --- Responsive Tweaks --- */
+@media (max-width: 600px) {
     .main-header {
-        flex-wrap: wrap; /* Allows items to wrap to the next line */
-        gap: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
-    
     .search-bar {
-        order: 3; /* Pushes the search bar below the logo and account links */
-        width: 100%; /* Makes the search bar span the full width */
-    }
-    
-    .hero-content h2 {
-        font-size: 36px; /* Slightly smaller text */
-    }
-}
-
-/* --- Required: Mobile View (Screens smaller than 768px) --- */
-@media (max-width: 768px) {
-    /* 1. Header Adjustments */
-    .main-header {
-        flex-direction: column;
-        text-align: center;
-        padding: 15px;
-    }
-    
-    .logo {
-        margin-bottom: 15px;
-    }
-    
-    .user-actions {
-        margin-top: 15px;
         width: 100%;
-        display: flex;
-        justify-content: center;
-        gap: 20px;
+        order: 3;
     }
-
-    /* 2. Navigation - Make it horizontally scrollable like a real app */
-    .categories-nav ul {
-        justify-content: flex-start;
-        overflow-x: auto; /* Adds a scrollbar if items overflow */
-        padding: 0 15px 10px 15px;
-        white-space: nowrap; /* Prevents text from wrapping to a new line */
-    }
-
-    /* 3. Hero Banner Adjustments */
-    .hero {
-        height: 250px; /* Shorter banner for small screens */
-        margin-bottom: 25px;
-    }
-    
     .hero-content h2 {
-        font-size: 28px;
+        font-size: 30px;
     }
-    
-    .hero-content p {
-        font-size: 16px;
-    }
-
-    /* 4. Product Grid - 2 Columns for Mobile (Classic SHEIN look) */
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* Forces exactly 2 columns */
-        gap: 10px; 
-    }
-
-    .product-info h4 {
-        font-size: 14px; /* Smaller font to fit mobile columns */
-    }
-
-    /* 5. Footer Adjustments */
-    .footer-links {
-        flex-direction: column; /* Stacks footer links vertically */
-        gap: 15px;
+    .modal-body img {
+        width: 100%;
+        height: auto;
     }
 }
